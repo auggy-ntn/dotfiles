@@ -1,5 +1,8 @@
 # Created by newuser for 5.9
 
+# -1. Set cursor (beam)
+precmd() { echo -ne '\e[5 q' }  # Beam cursor
+
 # 0. Initialize Completion System
 autoload -Uz compinit
 compinit
@@ -35,10 +38,18 @@ then
 	eval fastfetch
 fi
 
+
 # 3. Keyboard bindings
-bindkey '^[[1;5D' backward-word # Ctrl + Left arrow
-bindkey '^[[1;5C' forward-word # Ctrl + Right arrow
-bindkey '^H' backward-kill-word # Ctrl + Backspace
+# Ctrl + Arrow keys to skip words
+bindkey "^[[1;5C" forward-word      # Ctrl + Right
+bindkey "^[[1;5D" backward-word     # Ctrl + Left
+
+# Ctrl + Delete to delete word forward
+bindkey "^[[3;5~" kill-word         # Ctrl + Delete
+
+# Ctrl + Backspace to delete word backward
+bindkey "^H" backward-kill-word     # Ctrl + Backspace
+
 
 # 4. Aliases
 alias update_and_clean='sudo dnf upgrade --refresh && sudo dnf autoremove && sudo dnf clean all'
