@@ -66,3 +66,10 @@ fi
 
 # 5. Environment variables
 export EDITOR="code"
+
+. "$HOME/.local/share/../bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/augustin/.lmstudio/bin"
+# End of LM Studio CLI section
+
