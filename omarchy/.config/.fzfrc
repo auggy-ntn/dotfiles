@@ -1,0 +1,29 @@
+# Last updated 08/07/2025
+
+
+# Use 80% of terminal height
+--height=80%
+
+# Reverse layout puts the prompt at the top
+--layout=reverse
+
+# Add a border around the UI
+--border
+
+# Header
+--header='[Ctrl-O] VS Code • [Ctrl-M] Micro'
+
+# File preview using bat (fallback to cat if bat isn't installed)
+--preview='bat --style=numbers --color=always --line-range :500 {}'
+--preview-window='right:60%'
+
+# Show checkmark when selecting multiple items
+--marker='✓ '
+
+# Custom color scheme
+--color=fg+:yellow,header:italic:underline
+
+# Binding to open the file in vscode
+--bind='ctrl-o:execute(code {}),ctrl-e:execute(nvim {})+abort,ctrl-m:execute(micro {}),ctrl-d:execute(rm -i {})+reload(find . -type f),tab:toggle+down'
+
+
