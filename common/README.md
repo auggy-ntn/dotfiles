@@ -9,7 +9,12 @@ Machine-specific config lives in a sibling package (currently only [`omarchy`](.
 ```
 common/
 ├── .zshrc                          # primary interactive shell config
+├── .zprofile                       # login zsh — zsh never reads .profile
+├── .profile                        # login sh/dash
+├── .bash_profile                   # login bash
 └── .config/
+    ├── shell/env.sh                # PATH + tool env, shared by bash AND zsh
+                                    #   ^ add new exports HERE, nowhere else
     ├── git/{config,ignore}         # aliases, rebase-on-pull, rerere, histogram diffs
     ├── tmux/tmux.conf              # C-Space prefix, vi copy mode
     ├── atuin/config.toml           # shell history
@@ -22,7 +27,8 @@ common/
     ├── lazygit/config.yml
     ├── lazydocker/config.yml
     ├── fontconfig/fonts.conf
-    └── Code/User/{settings,keybindings,mcp}.json
+    ├── Code/User/{settings,keybindings,mcp}.json
+    └── Code/extensions.txt          # VS Code extension list (repo-only, not stowed)
 └── .claude/                        # Claude Code
     ├── settings.json               # model, hooks, plugins, statusline
     ├── CLAUDE.md, RTK.md           # global instructions
@@ -56,10 +62,38 @@ Plus, for the rest of the package: `tmux git gh mise micro btop lazygit lazydock
 
 On Arch: `sudo pacman -S zsh zsh-autosuggestions zsh-syntax-highlighting starship atuin zoxide fzf eza bat fastfetch tmux git github-cli mise micro btop lazygit`
 
+## Post-install steps
+
+Two things stow cannot do for you:
+
+```bash
+# 1. Make zsh the login shell (prompts for your password)
+chsh -s /usr/bin/zsh
+
+# 2. Restore VS Code extensions
+xargs -n1 code --install-extension < ~/dotfiles/common/.config/Code/extensions.txt
+```
+
+Refresh the extension list after installing new ones:
+
+```bash
+code --list-extensions > ~/dotfiles/common/.config/Code/extensions.txt
+```
+
+## Shell startup, in order
+
+```
+login zsh     →  .zprofile  →  .zshrc   ─┐
+login bash    →  .bash_profile → .bashrc ├→  .config/shell/env.sh
+login sh      →  .profile             ───┘
+```
+
+`env.sh` is idempotent and the only place PATH is touched. An interactive bash
+that starts anyway `exec`s into zsh (see `omarchy/.bashrc`); bypass with
+`BASH_TO_ZSH=1 bash`.
+
 ## Caveats
 
-- **`.zshrc` sources the zsh plugins by absolute Arch path** (`/usr/share/zsh/plugins/...`). Other distros place them elsewhere; those two `source` lines are unguarded and will error on shell start.
-- **`.zshrc` still carries Fedora `dnf` aliases** (`update_and_clean`, `fullupdate`) — dead on Arch.
 - **`btop.conf` sets `color_theme = "current"`**, which resolves to an Omarchy-managed theme file. Elsewhere btop falls back to its default theme; harmless.
 - **`.claude/settings.json` is rewritten by Claude Code itself.** If it ever replaces the symlink with a real file, restow.
 - **No secrets are tracked.** SSH keys and `gh` `hosts.yml` are deliberately excluded and must be provisioned per machine.
