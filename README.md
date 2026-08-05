@@ -8,28 +8,42 @@ This repository uses **GNU Stow** to manage dotfiles. Stow creates symlinks from
 
 ## Structure
 
-The repository is organized into directories, each representing a complete configuration profile:
+The repository is split into two kinds of package: one **portable** package installed on every machine, plus one **machine-specific** package per kind of setup.
 
 ```
 dotfiles/
-├── omarchy/                  # Omarchy Setup - Arch Linux + Hyprland configuration
-├── .stow-local-ignore        # Stow ignore patterns
+├── common/                   # Portable - shell, CLI tooling, editors, agents. Install everywhere
+├── omarchy/                  # Machine-specific - Arch Linux + Hyprland (Omarchy)
+├── .stow-local-ignore        # Stow ignore patterns (inert - see note below)
 └── README.md                 # This file
 ```
 
-Each profile directory contains the full directory structure mirroring your home directory (e.g., `.config/`, `.bashrc`, `.zshrc`).
+Each package contains the full directory structure mirroring your home directory (e.g., `.config/`, `.bashrc`, `.zshrc`). Packages coexist: stow `common` always, then whichever machine package applies.
+
+> **Note:** Stow only reads `.stow-local-ignore` from inside a *package* directory. The one at the repo root is never consulted.
 
 ## Quick Start
 
 Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+git clone git@github.com:auggy-ntn/dotfiles.git ~/dotfiles
+cd ~/dotfiles
 ```
 
-For specific installation instructions for each profile, see the README in that profile's directory:
+Install the portable config, then the machine package (dry-run first — Stow aborts the whole operation on any conflict):
 
+```bash
+stow -d . -t ~ --simulate -v common
+stow -d . -t ~ common
+
+stow -d . -t ~ --simulate -v omarchy   # only on an Omarchy machine
+stow -d . -t ~ omarchy
+```
+
+For per-package details, see the README in that package's directory:
+
+- **[Common](./common/README.md)** - portable shell, CLI, editor and agent config
 - **[Omarchy Setup](./omarchy/README.md)** - Arch Linux + Hyprland configuration
 
 ## GNU Stow Basics

@@ -1,0 +1,105 @@
+{
+    "workbench.sideBar.location": "right",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Retro '82",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "editor.fontFamily": "'JetBrainsMono Nerd Font'",
+    "terminal.integrated.cursorStyle": "line",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "catppuccin.accentColor": "blue",
+    "git.confirmSync": false,
+
+    // Ruff settings
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll.ruff": "explicit"
+        }
+    },
+    "notebook.formatOnSave.enabled": true,
+    "notebook.defaultFormatter": "charliermarsh.ruff",
+    "notebook.codeActionsOnSave": {
+        "notebook.source.organizeImports": "explicit",
+        "notebook.source.fixAll.ruff": "explicit"
+    },
+
+    // LaTeX settings
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
+
+    // Copilot settings
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "cSpell.userWords": [
+        "Augustin",
+        "dataframe",
+        "Naton"
+    ],
+    "files.exclude": {
+        ".git": true,
+        "**/.git": false
+    },
+
+    // Customize the color and opacity of the Git blame decorator
+    "workbench.colorCustomizations": {
+        "editorInlayHint.foreground": "#80808050",
+        "editorInlayHint.background": "#00000000",
+        // "editorGutter.modifiedBackground": "#1e90ff80",
+        // "editorGutter.addedBackground": "#00ff0080",
+        // "editorGutter.deletedBackground": "#ff000080",
+        // "editorOverviewRuler.modifiedForeground": "#1e90ff80",
+        // "editorOverviewRuler.addedForeground": "#00ff0080",
+        // "editorOverviewRuler.deletedForeground": "#ff000080",
+        // "gitDecoration.modifiedResourceForeground": "#1e90ff",
+        // "gitDecoration.addedResourceForeground": "#00ff00a0",
+        // "gitDecoration.deletedResourceForeground": "#ff0000",
+        // "gitDecoration.untrackedResourceForeground": "#00ff0080",
+        // "gitDecoration.conflictingResourceForeground": "#ff8800"
+    },
+    
+    // Ensure inlay hints are enabled
+    "editor.inlayHints.enabled": "on",
+    
+    // VSCode built-in Git decorations
+    "git.decorations.enabled": true,
+    "git.blame.statusBarItem.enabled": true,
+    "git.blame.editorDecoration.enabled": true,
+    "security.workspace.trust.enabled": false,
+    "python.defaultInterpreterPath": "/bin/python",
+    "github.copilot.enable": {
+        "*": true,
+        "plaintext": false,
+        "markdown": true,
+        "scminput": false,
+        "python": true
+    },
+    
+    // Python environment settings
+    "python.terminal.activateEnvironment": true,
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "claudeCode.preferredLocation": "panel",
+    "notebook.lineNumbers": "on",
+    "python.terminal.useEnvFile": true,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "chat.viewSessions.orientation": "stacked",
+    "errorLens.enabledDiagnosticLevels": [
+        "error",
+        "info",
+        "warning"
+    ],
+    "errorLens.codeLensEnabled": true,
+    "errorLens.codeLensTemplate": "$severity $source:  $message",
+    "errorLens.fontStyleItalic": true,
+    "errorLens.gutterIconsEnabled": true,
+    "errorLens.gutterEmoji": {
+        "error": "❌",
+        "warning": "⚠️",
+        "hint": "◉"
+    },
+    "errorLens.enabled": false
+
+}
