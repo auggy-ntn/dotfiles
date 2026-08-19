@@ -17,6 +17,9 @@ hl.config({
     touchpad = {
       natural_scroll = true,
       scroll_factor = 0.4,
+
+      -- Right-click is the bottom-right corner, not a two-finger click.
+      clickfinger_behavior = false,
     },
   },
 })
