@@ -1,7 +1,7 @@
 {
     "workbench.sideBar.location": "right",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Retro '82",
+    "workbench.colorTheme": "Ship at Sea",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "editor.fontFamily": "'JetBrainsMono Nerd Font'",
     "terminal.integrated.cursorStyle": "line",
