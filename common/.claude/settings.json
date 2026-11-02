@@ -11,6 +11,18 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "^(startup|resume|clear|compact|fork)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f \"$HOME/.claude/hooks/herdr-agent-state.sh\" ] && bash \"$HOME/.claude/hooks/herdr-agent-state.sh\" session || true",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   },
   "statusLine": {
@@ -22,7 +34,9 @@
     "example-skills@anthropic-agent-skills": false,
     "caveman@caveman": true,
     "compound-engineering@compound-engineering-plugin": false,
-    "ponytail@ponytail": false
+    "ponytail@ponytail": true,
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -52,6 +66,14 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
+  "pluginConfigs": {
+    "ponytail@ponytail": {
+      "options": {
+        "ledger": false,
+        "sendNames": false
+      }
+    }
+  },
   "autoUpdatesChannel": "stable",
   "minimumVersion": "2.1.7",
   "tui": "fullscreen",

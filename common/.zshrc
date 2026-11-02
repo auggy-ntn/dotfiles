@@ -9,13 +9,14 @@ compinit
 
 # 1. Plugins syntax & autocompletion
 # Paths differ per distro (Arch: /usr/share/zsh/plugins, Debian: /usr/share,
-# Fedora: /usr/share/zsh-*), so try each and skip silently if absent.
-for plugin_dir in /usr/share/zsh/plugins /usr/share /usr/local/share; do
+# Fedora: /usr/share/zsh-*, macOS Homebrew: /opt/homebrew/share), so try each
+# and skip silently if absent.
+for plugin_dir in /usr/share/zsh/plugins /usr/share /usr/local/share /opt/homebrew/share; do
   [[ -f "$plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] \
     && source "$plugin_dir/zsh-autosuggestions/zsh-autosuggestions.zsh" \
     && break
 done
-for plugin_dir in /usr/share/zsh/plugins /usr/share /usr/local/share; do
+for plugin_dir in /usr/share/zsh/plugins /usr/share /usr/local/share /opt/homebrew/share; do
   [[ -f "$plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] \
     && source "$plugin_dir/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
     && break
@@ -74,8 +75,11 @@ bindkey "^H" backward-kill-word     # Ctrl + Backspace
 
 # 4. Aliases
 
-# System update. Uses yay when present (covers the AUR too), pacman otherwise.
-if command -v yay &> /dev/null; then
+# System update. Homebrew on macOS; yay when present (covers the AUR too), pacman otherwise.
+if [[ "$OSTYPE" == darwin* ]] && command -v brew &> /dev/null; then
+  alias update='brew update && brew upgrade'
+  alias update_and_clean='update && brew autoremove && brew cleanup'
+elif command -v yay &> /dev/null; then
   alias update='yay -Syu'
   alias update_and_clean='yay -Syu && yay -Yc && yay -Sc --noconfirm'  # -Yc drops orphans, -Sc trims the package cache
 else
@@ -106,3 +110,5 @@ export EDITOR="code"
 # Add new exports there, not here.
 [[ -f "$HOME/.config/shell/env.sh" ]] && source "$HOME/.config/shell/env.sh"
 
+# 6. Machine-local overrides (untracked): SDK hooks, work-only aliases, etc.
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"

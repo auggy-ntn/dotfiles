@@ -1,7 +1,7 @@
 {
     "workbench.sideBar.location": "right",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Ship at Sea",
+    "workbench.colorTheme": "One Dark Pro Darker",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "editor.fontFamily": "'JetBrainsMono Nerd Font'",
     "terminal.integrated.cursorStyle": "line",
@@ -66,8 +66,7 @@
     "git.decorations.enabled": true,
     "git.blame.statusBarItem.enabled": true,
     "git.blame.editorDecoration.enabled": true,
-    "security.workspace.trust.enabled": false,
-    "python.defaultInterpreterPath": "/bin/python",
+    "security.workspace.trust.enabled": true,
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
