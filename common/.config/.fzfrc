@@ -1,4 +1,6 @@
-# Last updated 08/07/2025
+# Last updated 02/11/2026
+# Global look-and-feel only: applies to every fzf call (Ctrl-R, Alt-C, cdi...).
+# File-specific preview/actions live in FZF_CTRL_T_OPTS in .zshrc.
 
 
 # Use 80% of terminal height
@@ -10,23 +12,11 @@
 # Add a border around the UI
 --border
 
-# Header
---header='[Ctrl-O] VS Code • [Ctrl-E] Micro • [Ctrl-D] delete'
-
-# File preview using bat (fallback to cat if bat isn't installed)
---preview='bat --style=numbers --color=always --line-range :500 {}'
---preview-window='right:60%'
-
 # Show checkmark when selecting multiple items
 --marker='✓ '
 
 # Custom color scheme
 --color=fg+:yellow,header:italic:underline
 
-# Bindings.
-# Note: ctrl-m is NOT bindable — terminals send it as Enter — so the old
-# ctrl-m/micro binding never fired. Micro now lives on ctrl-e, which used to
-# open nvim (not installed).
---bind='ctrl-o:execute(code {}),ctrl-e:execute(micro {})+abort,ctrl-d:execute(rm -i {})+reload(find . -type f),tab:toggle+down'
-
-
+# Bindings
+--bind='tab:toggle+down'

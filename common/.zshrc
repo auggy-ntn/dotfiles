@@ -33,6 +33,27 @@ unset plugin_dir
 if command -v fzf &> /dev/null; then
   source <(fzf --zsh) # Set up fzf key bindings and fuzzy completion
   export FZF_DEFAULT_OPTS_FILE="$HOME/.config/.fzfrc"
+  # rg respects .gitignore; without it fzf falls back to its built-in walker
+  _fzf_files='find . -type f -not -path "*/.git/*"'
+  _fzf_toggle=''
+  if command -v rg &> /dev/null; then
+    _fzf_files='rg --files --hidden --glob "!.git"'
+    export FZF_DEFAULT_COMMAND="$_fzf_files"
+    export FZF_CTRL_T_COMMAND="$_fzf_files"
+    # ctrl-g flips between respecting and ignoring .gitignore; the prompt holds the state
+    _fzf_toggle=",ctrl-g:transform:[[ \$FZF_PROMPT == all* ]] && echo \"change-prompt(> )+reload($_fzf_files)\" || echo \"change-prompt(all> )+reload($_fzf_files --no-ignore)\""
+  fi
+  # File actions only for Ctrl-T, so they don't leak into Ctrl-R / Alt-C / cdi.
+  # ctrl-m is not bindable (terminals send it as Enter), hence micro on ctrl-e.
+  export FZF_CTRL_T_OPTS="
+    --preview 'bat --style=numbers --color=always --line-range :500 {}'
+    --preview-window right:60%
+    --header '[Ctrl-O] VS Code • [Ctrl-E] Micro • [Ctrl-D] delete • [Ctrl-G] gitignored'
+    --bind 'ctrl-o:execute(code {}),ctrl-e:execute(micro {})+abort,ctrl-d:execute(rm -i {})+reload($_fzf_files)$_fzf_toggle'"
+  export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --icons --color=always {}'"
+  # Plain fzf: preview only when the line is a file, so pipes (git branch | fzf) stay clean
+  alias fzf="fzf --preview '[[ -f {} ]] && bat --style=numbers --color=always --line-range :500 {}' --bind 'ctrl-/:toggle-preview'"
+  unset _fzf_files _fzf_toggle
 fi
 
 # 2. Atuin (history manager)
